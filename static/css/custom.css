@@ -1,0 +1,15 @@
+.bg-light{
+opacity: 0.3;
+}
+.bg { 
+  /* The image used */
+  background-image: url("/../img/Picture1.jpg");
+
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
