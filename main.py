@@ -172,3 +172,7 @@ def my_form_post():
     #return '<p>'+uni+bi+tri+'</p>'
     os.remove(file.filename)
     return send_file(output, attachment_filename=request.form['output_file']+'.xlsx', as_attachment=True)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+    app.static_folder = 'static'
