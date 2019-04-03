@@ -159,8 +159,9 @@ def my_form_post():
 #
     ngrams = dict(FreqDist(flat_list))
     sorted_ngrams = sorted(ngrams.items(), key=operator.itemgetter(1),reverse=True)    
-    
-    return '<p>'+ pd.Series(dict(sorted_ngrams[:100])).iloc[0] + '</p>'
+    os.remove(file.filename)
+ 
+    return '<p>'+ 'file deleted' + '</p>'
 #    
 #    print(pd.Series(dict(sorted_ngrams[:100])), file=sys.stdout)
 #    
@@ -169,6 +170,5 @@ def my_form_post():
 #    pd.Series(dict(sorted_ngrams[:1000])).to_excel(writer, sheet_name='Sheet1', header=False)
 #    writer.save()
 #    output.seek(0)
-#    os.remove(file.filename)
-    #return '<p>'+uni+bi+tri+'</p>'
+   #return '<p>'+uni+bi+tri+'</p>'
     #return send_file(output, attachment_filename=request.form['output_file']+'.xlsx', as_attachment=True)
