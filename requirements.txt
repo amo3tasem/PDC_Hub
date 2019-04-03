@@ -12,3 +12,4 @@ pytz==2018.9
 singledispatch==3.4.0.3
 six==1.12.0
 Werkzeug==0.15.2
+xlsxwriter==1.1.5

@@ -20,6 +20,7 @@ def index():
 
 @app.route('/', methods=['POST'])
 def my_form_post():
+    import xlsxwriter
     from nltk import ngrams
     from nltk import FreqDist
     from io import BytesIO
