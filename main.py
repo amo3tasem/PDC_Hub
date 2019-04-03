@@ -23,7 +23,6 @@ def my_form_post():
     from nltk import ngrams
     from nltk import FreqDist
     from io import BytesIO
-    import sys
     import pandas as pd
     import re
     import operator
@@ -161,14 +160,13 @@ def my_form_post():
     sorted_ngrams = sorted(ngrams.items(), key=operator.itemgetter(1),reverse=True)    
     os.remove(file.filename)
  
-    return '<p>'+ 'file deleted' + '</p>'
 #    
 #    print(pd.Series(dict(sorted_ngrams[:100])), file=sys.stdout)
 #    
-#    output = BytesIO()
-#    writer = pd.ExcelWriter(output, engine='xlsxwriter')
-#    pd.Series(dict(sorted_ngrams[:1000])).to_excel(writer, sheet_name='Sheet1', header=False)
-#    writer.save()
-#    output.seek(0)
+    output = BytesIO()
+    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+    pd.Series(dict(sorted_ngrams[:1000])).to_excel(writer, sheet_name='Sheet1', header=False)
+    writer.save()
+    output.seek(0)
    #return '<p>'+uni+bi+tri+'</p>'
-    #return send_file(output, attachment_filename=request.form['output_file']+'.xlsx', as_attachment=True)
+    return send_file(output, attachment_filename=request.form['output_file']+'.xlsx', as_attachment=True)
