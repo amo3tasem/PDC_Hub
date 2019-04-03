@@ -116,50 +116,51 @@ def my_form_post():
         
         snippets_clean.append(otherStr.strip())
 
-    return snippets_clean[0]
 #    print(snippets_clean[0], file=sys.stdout)
 #
 #
-#    words=[]
-#    bigrams=[]
-#    trigrams=[]
-#   
-#    if(uni == 'option1'):
-#        snippets_1 = [ngrams(x.split(), 1) for x in snippets_clean]
-#        snippets_1_filtered = [list(x) for x in snippets_1]
-#        for s in snippets_1_filtered:
-#            words.append([' '.join(x) for x in s])
-#
-#    if(bi == 'option1'):
-#        snippets_2 = [ngrams(x.split(), 2) for x in snippets_clean]
-#        snippets_2_filtered = []
-#        for s in range(0, len(snippets_2)):
-#            try:
-#                snippets_2_filtered.append(list(snippets_2[s]))
-#            except:
-#                continue
-#        for s in snippets_2_filtered:
-#            bigrams.append([' '.join(x) for x in s])
-#   
-#    if(tri == 'option1'):
-#        snippets_3 = [ngrams(x.split(), 3) for x in snippets_clean]
-#        snippets_3_filtered = []
-#        for s in range(0, len(snippets_3)):
-#            try:
-#                snippets_3_filtered.append(list(snippets_3[s]))
-#            except:
-#                continue
-#        for s in snippets_3_filtered:
-#            trigrams.append([' '.join(x) for x in s])   
-#  
-#
-#    full_list = words + bigrams + trigrams
-#    flat_list = [item for sublist in full_list for item in sublist]
+    words=[]
+    bigrams=[]
+    trigrams=[]
+   
+    if(uni == 'option1'):
+        snippets_1 = [ngrams(x.split(), 1) for x in snippets_clean]
+        snippets_1_filtered = [list(x) for x in snippets_1]
+        for s in snippets_1_filtered:
+            words.append([' '.join(x) for x in s])
+
+    if(bi == 'option1'):
+        snippets_2 = [ngrams(x.split(), 2) for x in snippets_clean]
+        snippets_2_filtered = []
+        for s in range(0, len(snippets_2)):
+            try:
+                snippets_2_filtered.append(list(snippets_2[s]))
+            except:
+                continue
+        for s in snippets_2_filtered:
+            bigrams.append([' '.join(x) for x in s])
+   
+    if(tri == 'option1'):
+        snippets_3 = [ngrams(x.split(), 3) for x in snippets_clean]
+        snippets_3_filtered = []
+        for s in range(0, len(snippets_3)):
+            try:
+                snippets_3_filtered.append(list(snippets_3[s]))
+            except:
+                continue
+        for s in snippets_3_filtered:
+            trigrams.append([' '.join(x) for x in s])   
+  
+
+    full_list = words + bigrams + trigrams
+    flat_list = [item for sublist in full_list for item in sublist]
 #    
 #    print(flat_list[:10], file=sys.stdout)
 #
-#    ngrams = dict(FreqDist(flat_list))
-#    sorted_ngrams = sorted(ngrams.items(), key=operator.itemgetter(1),reverse=True)    
+    ngrams = dict(FreqDist(flat_list))
+    sorted_ngrams = sorted(ngrams.items(), key=operator.itemgetter(1),reverse=True)    
+    
+    return pd.Series(dict(sorted_ngrams[:100])
 #    
 #    print(pd.Series(dict(sorted_ngrams[:100])), file=sys.stdout)
 #    
