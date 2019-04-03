@@ -25,17 +25,15 @@ def my_form_post():
     from io import BytesIO
     import sys
     import pandas as pd
-    import numpy as np
-    import nltk
     import re
-    import itertools
     import operator
     import os
     
-    #nltk.download('stopwords')
-    english_stopwords = list(set(nltk.corpus.stopwords.words("english")))
-    arabic_stopwords = list(set(nltk.corpus.stopwords.words("arabic")))
-
+    english_stopwords = pd.read_csv('english_stopwords.txt', encoding='UTF-8',names=['words'])
+    english_stopwords = list(english_stopwords['words'])
+    arabic_stopwords = pd.read_csv('arabic_stopwords.txt', encoding='UTF-8', names=['words'])
+    arabic_stopwords = list(arabic_stopwords['words'])
+    
     def replaceMultiple(mainString, toBeReplaces, newString):
         # Iterate over the strings to be replaced
         for elem in toBeReplaces :
