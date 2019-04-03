@@ -167,6 +167,6 @@ def my_form_post():
     pd.Series(dict(sorted_ngrams[:1000])).to_excel(writer, sheet_name='Sheet1', header=False)
     writer.save()
     output.seek(0)
-    return '<p>'+uni+bi+tri+'</p>'
     os.remove(file.filename)
+    return '<p>'+uni+bi+tri+'</p>'
     #return send_file(output, attachment_filename=request.form['output_file']+'.xlsx', as_attachment=True)
