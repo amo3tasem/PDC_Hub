@@ -160,7 +160,7 @@ def my_form_post():
     ngrams = dict(FreqDist(flat_list))
     sorted_ngrams = sorted(ngrams.items(), key=operator.itemgetter(1),reverse=True)    
     
-    return pd.Series(dict(sorted_ngrams[:100])
+    return '<p>'+ pd.Series(dict(sorted_ngrams[:100])).iloc[0] + '</p>'
 #    
 #    print(pd.Series(dict(sorted_ngrams[:100])), file=sys.stdout)
 #    
