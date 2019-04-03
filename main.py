@@ -29,29 +29,29 @@ def my_form_post():
     import operator
     import os
     
-#    english_stopwords = pd.read_csv('english_stopwords.txt', encoding='UTF-8',names=['words'])
-#    english_stopwords = list(english_stopwords['words'])
-#    arabic_stopwords = pd.read_csv('arabic_stopwords.txt', encoding='UTF-8', names=['words'])
-#    arabic_stopwords = list(arabic_stopwords['words'])
-#    
-#    def replaceMultiple(mainString, toBeReplaces, newString):
-#        # Iterate over the strings to be replaced
-#        for elem in toBeReplaces :
-#            # Check if string is in the main string
-#            if elem in mainString :
-#                # Replace the string
-#                mainString = mainString.replace(elem, newString)
-#        
-#        return  mainString
-#
-#    def remove_stop_words(text):
-#    #print(text)
-#        filtered_word_list = [] #make a copy of the word_list
-#        for word in text.split(): # iterate over word_list
-#            if((word not in english_stopwords) and (word not in arabic_stopwords)):
-#                filtered_word_list.append(word)# remove word from filtered_word_list if it is a stopword
-#                
-#        return filtered_word_list
+    english_stopwords = pd.read_csv('english_stopwords.txt', encoding='UTF-8',names=['words'])
+    english_stopwords = list(english_stopwords['words'])
+    arabic_stopwords = pd.read_csv('arabic_stopwords.txt', encoding='UTF-8', names=['words'])
+    arabic_stopwords = list(arabic_stopwords['words'])
+    
+    def replaceMultiple(mainString, toBeReplaces, newString):
+        # Iterate over the strings to be replaced
+        for elem in toBeReplaces :
+            # Check if string is in the main string
+            if elem in mainString :
+                # Replace the string
+                mainString = mainString.replace(elem, newString)
+        
+        return  mainString
+
+    def remove_stop_words(text):
+    #print(text)
+        filtered_word_list = [] #make a copy of the word_list
+        for word in text.split(): # iterate over word_list
+            if((word not in english_stopwords) and (word not in arabic_stopwords)):
+                filtered_word_list.append(word)# remove word from filtered_word_list if it is a stopword
+                
+        return filtered_word_list
 
 
     file = request.files['file']
@@ -70,52 +70,53 @@ def my_form_post():
         tri = 'off'
         
     
-#    file.save(secure_filename(file.filename))
-#    
-#    if(file.filename.split('.')[-1] == 'xlsx'):
-#        df = pd.read_excel(file.filename)
-#    else:
-#        df = pd.read_csv(file.filename, encoding='UTF-8')
-#    
-#    snippets = df[text_col].astype(str)
-#    
-#    snippets = [x.replace('’', "'") for x in snippets]
-#    snippets = [' '.join(remove_stop_words(x)) for x in snippets]
-#    snippets_clean = []
-#    
-#    for s in snippets: 
-#        t = s
-#        
-#        # remove numbers
-#        t = ''.join([i for i in t if not i.isdigit()])
-#        
-#        #remove hashtags
-#        t = re.sub(r"(?:@\S*|#\S*|http(?=.*://)\S*|pic.twitter\S*|RT(?=.*@)\S*)", "", t)
-#        
-#        '''
-#        Replace multiple characters / strings from a string
-#        '''
-#        
-#        
-#        # Replace all the occurrences of string in list by AA in the main list 
-#        otherStr = replaceMultiple(t.lower(), [':', '.',',', '?', ',', '،', '؛', '‘', '’', '`', '~', '?', '؟', '-', ';', 'ـ', '#', '_'] , " ")
-#        otherStr = replaceMultiple(otherStr, ['ّ', 'َ', 'ً', 'ُ', 'ٌ', 'ِ', 'ٍ', 'ْ'], "")
-#        otherStr = replaceMultiple(otherStr, ['أ', 'آ', 'إ'], 'ا')
-#        otherStr = replaceMultiple(otherStr, ['ى'], "ي")
-#        otherStr = replaceMultiple(otherStr, ['ة'], 'ه')
-#        otherStr = replaceMultiple(otherStr, ['(', ')', '{', '}', '[', ']', '<', '>', '<', '>', 'ـ', '{','}','–', '.', ':',','], '')
-#        #remove words with less than 2 characters
-#        
-#        
-#        final_words = []
-#        for w in otherStr.split():
-#            if(len(w) > 2):
-#                final_words.append(w)
-#        
-#        otherStr = ' '.join(final_words)
-#        
-#        snippets_clean.append(otherStr.strip())
-#
+    file.save(secure_filename(file.filename))
+    
+    if(file.filename.split('.')[-1] == 'xlsx'):
+        df = pd.read_excel(file.filename)
+    else:
+        df = pd.read_csv(file.filename, encoding='UTF-8')
+    
+    snippets = df[text_col].astype(str)
+    
+    snippets = [x.replace('’', "'") for x in snippets]
+    snippets = [' '.join(remove_stop_words(x)) for x in snippets]
+    snippets_clean = []
+    
+    for s in snippets: 
+        t = s
+        
+        # remove numbers
+        t = ''.join([i for i in t if not i.isdigit()])
+        
+        #remove hashtags
+        t = re.sub(r"(?:@\S*|#\S*|http(?=.*://)\S*|pic.twitter\S*|RT(?=.*@)\S*)", "", t)
+        
+        '''
+        Replace multiple characters / strings from a string
+        '''
+        
+        
+        # Replace all the occurrences of string in list by AA in the main list 
+        otherStr = replaceMultiple(t.lower(), [':', '.',',', '?', ',', '،', '؛', '‘', '’', '`', '~', '?', '؟', '-', ';', 'ـ', '#', '_'] , " ")
+        otherStr = replaceMultiple(otherStr, ['ّ', 'َ', 'ً', 'ُ', 'ٌ', 'ِ', 'ٍ', 'ْ'], "")
+        otherStr = replaceMultiple(otherStr, ['أ', 'آ', 'إ'], 'ا')
+        otherStr = replaceMultiple(otherStr, ['ى'], "ي")
+        otherStr = replaceMultiple(otherStr, ['ة'], 'ه')
+        otherStr = replaceMultiple(otherStr, ['(', ')', '{', '}', '[', ']', '<', '>', '<', '>', 'ـ', '{','}','–', '.', ':',','], '')
+        #remove words with less than 2 characters
+        
+        
+        final_words = []
+        for w in otherStr.split():
+            if(len(w) > 2):
+                final_words.append(w)
+        
+        otherStr = ' '.join(final_words)
+        
+        snippets_clean.append(otherStr.strip())
+
+    return snippets_clean[0]
 #    print(snippets_clean[0], file=sys.stdout)
 #
 #
@@ -168,5 +169,5 @@ def my_form_post():
 #    writer.save()
 #    output.seek(0)
 #    os.remove(file.filename)
-    return '<p>'+uni+bi+tri+'</p>'
+    #return '<p>'+uni+bi+tri+'</p>'
     #return send_file(output, attachment_filename=request.form['output_file']+'.xlsx', as_attachment=True)
