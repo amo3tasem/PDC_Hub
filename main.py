@@ -14,13 +14,26 @@ from werkzeug import secure_filename
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def index():
-    return render_template('input.html')
+    return render_template('index.html')
 
-@app.route('/', methods=['POST'])
-def my_form_post():
-    import xlsxwriter
+@app.route('/overlaps')
+def overlaps():
+    return render_template('overlaps.html')
+
+@app.route('/overlaps', methods=['POST'])
+def overlaps_form_post():
+    col = request.form('column')
+    return col + 'sha8al'
+
+@app.route('/ngrams')
+def ngrams():
+    return render_template('ngrams.html')
+
+@app.route('/ngrams', methods=['POST'])
+def ngrams_form_post():
     from nltk import ngrams
     from nltk import FreqDist
     from io import BytesIO
