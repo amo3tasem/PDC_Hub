@@ -26,7 +26,7 @@ def overlaps():
 @app.route('/overlaps', methods=['POST'])
 def overlaps_form_post():
     col = request.form('column')
-    return col + 'sha8al'
+    return '<p>' + col + 'sha8al </p>'
 
 @app.route('/ngrams')
 def ngrams():
