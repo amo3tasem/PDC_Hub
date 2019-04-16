@@ -15,9 +15,6 @@ from werkzeug import secure_filename
 app = Flask(__name__)
 
 
-@app.route('/')
-def index():
-    return render_template('index.html')
 
 @app.route('/overlaps')
 def overlaps():
@@ -26,13 +23,18 @@ def overlaps():
 @app.route('/overlaps', methods=['POST'])
 def overlaps_form_post():
     temp_var = request.form['testcol']
-    return '<p>' + temp_var + 'eshta8al </p>'
+    return '<p>' + temp_var + ' eshta8al </p>'
 
-@app.route('/ngrams')
-def ngrams():
+#@app.route('/ngrams')
+#def ngrams():
+#    return render_template('ngrams.html')
+
+@app.route('/')
+def index():
     return render_template('ngrams.html')
 
-@app.route('/ngrams', methods=['POST'])
+
+@app.route('/', methods=['POST'])
 def ngrams_form_post():
     from nltk import ngrams
     from nltk import FreqDist
