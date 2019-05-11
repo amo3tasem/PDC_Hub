@@ -24,6 +24,7 @@ def overlaps():
 def overlaps_form_post():
     from io import BytesIO
     import pandas as pd
+    import os
     
     file = request.files['file']
     text_col = request.form['column']
@@ -60,6 +61,7 @@ def overlaps_form_post():
                         #print(cat, topic ,index)
                         df.at[index,cat]+=1
 
+    os.remove(file.filename)
     
     output = BytesIO()
     writer = pd.ExcelWriter(output, engine='xlsxwriter')
