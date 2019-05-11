@@ -14,13 +14,74 @@ from werkzeug import secure_filename
 
 app = Flask(__name__)
 
+
+
+@app.route('/overlaps')
+def overlaps():
+    return render_template('overlaps.html')
+
+@app.route('/overlaps', methods=['POST'])
+def overlaps_form_post():
+    from io import BytesIO
+    import pandas as pd
+    import os
+    
+    file = request.files['file']
+    text_col = request.form['column']
+    file.save(secure_filename(file.filename))
+    
+    if(file.filename.split('.')[-1] == 'xlsx'):
+        topics = pd.read_excel(file.filename)
+    else:
+        topics = pd.read_csv(file.filename, encoding='UTF-8')
+        
+    cats = [str(x).split(',') for x in list(topics[text_col])]
+
+    cats = [item for sublist in cats for item in sublist]
+    
+    
+    cats = [x.strip() for x in cats]
+    
+    cats = list(set(cats))
+    
+    topics_s = list(topics[text_col])
+    topics_s = [x for x in topics_s if str(x) != 'nan']
+    topics_s = [str(x).split(',') for x in topics_s]
+
+    df = pd.DataFrame(index=cats, columns=cats).fillna(0)
+    for index, row in df.iterrows():
+        #print(index)
+        for topic in topics_s:
+            if(index in [x.strip() for x in topic]):
+                #print(topic)
+                df.at[index,index]+=1
+                for cat in cats:
+                    #print(cat)
+                    if(cat in [x.strip() for x in topic] and cat != index):
+                        #print(cat, topic ,index)
+                        df.at[index,cat]+=1
+
+    os.remove(file.filename)
+    
+    output = BytesIO()
+    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+    df.to_excel(writer)
+    writer.save()
+    output.seek(0)
+    return send_file(output, attachment_filename=request.form['output_file']+'.xlsx', as_attachment=True)
+
+
+#@app.route('/ngrams')
+#def ngrams():
+#    return render_template('ngrams.html')
+
 @app.route('/')
 def index():
-    return render_template('input.html')
+    return render_template('ngrams.html')
+
 
 @app.route('/', methods=['POST'])
-def my_form_post():
-    import xlsxwriter
+def ngrams_form_post():
     from nltk import ngrams
     from nltk import FreqDist
     from io import BytesIO
